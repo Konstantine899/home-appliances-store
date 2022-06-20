@@ -5,6 +5,7 @@ const cors = require("cors");
 const sequelize = require("./db");
 const models = require("./models/models");
 const router = require("./routes/index");
+const ErrorHandler = require("./middleware/ErrorHandlingMiddleware");
 
 const PORT = process.env.PORT || 5000;
 
@@ -13,6 +14,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/home-appliances-store", router);
+//ErrorHandler всегда регистрирую последним в списке middleware
+app.use(ErrorHandler);
 
 const start = async () => {
   try {
